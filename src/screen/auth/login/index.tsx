@@ -7,10 +7,9 @@ import { actionSaveLoginInfo } from "store/reducer/login";
 import { useEffect } from "react";
 import { useAppSelector } from "store/use-app-selector";
 import UtilsNavigations from "router/route-utiles";
-import { Spinner } from "components";
+import { CustomButton, Spinner } from "components";
 
 function Login(): JSX.Element {
-  const classStyles = LoginStyles();
   const { t } = useTranslation("");
   const { loginInfo } = useAppSelector((state) => state.rLogin);
   const dispatch = useAppDispatch();
@@ -26,22 +25,37 @@ function Login(): JSX.Element {
 
   return (
     <Box>
-      <FormLabel className={classStyles.lblLogin}>{t("welcome")}</FormLabel>
-      <Button onClick={() => onChangeLanguage("es")} variant="contained">
+      <FormLabel sx={LoginStyles.styleBtn}>{t("welcome")}</FormLabel>
+      <Button
+        sx={LoginStyles.styleBtn}
+        onClick={() => onChangeLanguage("es")}
+        variant="contained"
+      >
         Change Language (ES)
       </Button>
       <Button onClick={() => onChangeLanguage("en")} variant="contained">
         Change Language (EN)
       </Button>
-      <Button onClick={() => btnLoginClicked()} variant="contained">
+      <Button
+        sx={LoginStyles.styleBtn}
+        onClick={() => btnLoginClicked()}
+        variant="contained"
+      >
         Login
       </Button>
       <Button
         onClick={() => onNavigateWithScreenName("/dashboard")}
         variant="contained"
+        sx={{
+          height: { sx: 20, sm: 50, md: 120, lg: 180, xlg: 200 },
+          backgroundColor: "red",
+        }}
       >
         Dashboard
       </Button>
+      <CustomButton customStyles={LoginStyles.styleBtn}>
+        Custom My Button
+      </CustomButton>
       <Spinner />
     </Box>
   );

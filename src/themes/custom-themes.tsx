@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, SxProps, ThemeProvider } from "@mui/material/styles";
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     primary: {
       light: "#757ce8",
@@ -21,6 +21,10 @@ const theme = createTheme({
 type propsTheme = {
   children: ReactNode;
 };
+
+export interface interfaceStyleProps {
+  [key: string]: SxProps;
+}
 
 const MainThemeProvider: FC<propsTheme> = (props) => {
   return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
