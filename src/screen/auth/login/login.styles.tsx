@@ -2,10 +2,10 @@ import { interfaceStyleProps, theme } from "themes/custom-themes";
 
 export const LoginStyles: interfaceStyleProps = {
   styleBtn: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.light,
     textTransform: "capitalize",
-    width: { sx: 200, sm: 300, md: 400, lg: 500, xl: 600 },
-    height: 100,
+    // width: { sx: 70, sm: 90, md: 100, lg: 120, xl: 150 },
+    height: 40,
   },
   lblLogin: {
     backgroundColor: theme.palette.primary.main,

@@ -4,16 +4,21 @@ import { useTranslation } from "react-i18next";
 import { onChangeLanguage } from "locals-i18n/index";
 import { useAppDispatch } from "store/use-app-dispatch";
 import { actionSaveLoginInfo } from "store/reducer/login";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "store/use-app-selector";
 import UtilsNavigations from "router/route-utiles";
 import { CustomButton, Spinner } from "components";
+import { loginObject, typeZLogin } from "interfaces/screen/auth/login";
 
 function Login(): JSX.Element {
-  const { t } = useTranslation("");
+  const { t } = useTranslation();
   const { loginInfo } = useAppSelector((state) => state.rLogin);
   const dispatch = useAppDispatch();
   const { onNavigateWithScreenName } = UtilsNavigations();
+  const [formValues, setFormValues] = useState<typeZLogin>({
+    email: "test@test.com",
+    password: "",
+  });
 
   useEffect(() => {
     console.log("---islogin---", loginInfo);
@@ -47,13 +52,25 @@ function Login(): JSX.Element {
         onClick={() => onNavigateWithScreenName("/dashboard")}
         variant="contained"
         sx={{
-          height: { sx: 20, sm: 50, md: 120, lg: 180, xlg: 200 },
+          height: { sx: 20, sm: 50, md: 80, lg: 100, xlg: 150 },
           backgroundColor: "red",
         }}
       >
         Dashboard
       </Button>
-      <CustomButton customStyles={LoginStyles.styleBtn}>
+      <CustomButton
+        onClick={() => {
+          const result = loginObject.safeParse(formValues);
+          console.log(result.success);
+          console.log(result.error?.format());
+          const formatted = result.error?.format();
+          console.log(
+            formatted?.email ? formatted?.email?._errors[0] : "valid email"
+          );
+          console.log(formatted?.password?._errors[0]);
+        }}
+        sx={LoginStyles.styleBtn}
+      >
         Custom My Button
       </CustomButton>
       <Spinner />
